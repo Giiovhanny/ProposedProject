@@ -1,0 +1,80 @@
+---
+title: "Proposal Project"
+author: "Giovanny"
+date: "7/20/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this project, I propose to develop an analysis and find relationships among the worked time by people through the years with the quality life level and happiness in different countries. Also, the work's purpose is to create models to predict the GDP values according to factors that conform to "happiness" for example freedom.
+To perform the project, I obtained different datasets which contain information about hours of work per week in different years and happiness score per country (with more interesting features).
+
+As a small proof of this interesting project, I plotted 3 graphics to show the available data. 
+
+Data Sources:
+
+https://www.kaggle.com/orhankaramancode/city-quality-of-life-dataset?select=uaScoresDataFrame.csv
+
+https://www.kaggle.com/unsdsn/world-happiness?select=2015.csv
+
+https://data.oecd.org/emp/hours-worked.htm
+
+
+```{r}
+dataProject <-readr::read_csv('horasTrabajadasEuropa.csv')
+dataProject2 <-readr::read_csv('uaScoresDataFrame.csv')
+dataProject3 <-readr::read_csv('world-happiness-report.csv')
+dataProject4 <-readr::read_csv('world-happiness-report-2021.csv')
+dataProject5 <-readr::read_csv('2015.csv')
+dataProject6 <-readr::read_csv('2016.csv')
+dataProject7 <-readr::read_csv('2017.csv')
+dataProject8 <-readr::read_csv('2018.csv')
+dataProject9 <-readr::read_csv('2019.csv')
+
+
+```
+
+
+```{r}
+library(ggplot2)
+ggplot(dataProject, aes(x = TIME, y = Value), colour =  LOCATION) + geom_line(aes(colour=LOCATION))
+```
+
+
+```{r}
+dataProject3 <-filter(dataProject3,`Country name` == 'Spain'|`Country name` == 'Australia'|
+                        `Country name` == 'Belgium'|
+                        `Country name` == 'Mexico'|
+                        `Country name` == 'Finlandia'|
+                        `Country name` == 'France'|
+                        `Country name` == 'Japan'|
+                        `Country name` == 'Russia'|
+                        `Country name` == 'Italy')
+ggplot(dataProject3, aes(x = year, y = `Log GDP per capita`))+geom_line(aes(colour=`Country name`))
+```
+
+
+```{r}
+dataProject9 <-filter(dataProject9,`Country or region` == 'Spain'|
+                        `Country or region` =='Australia'|
+                        `Country or region` == 'Belgium'|
+                         `Country or region` ==  'Mexico'|
+                        `Country or region` == 'Finlandia'|
+                        `Country or region` == 'France'|
+                        `Country or region` == 'Japan'|
+                        `Country or region` == 'Russia'|
+                        `Country or region` == 'Italy')
+
+ggplot(dataProject9, aes(x = `Country or region`, y = Score))+ geom_bar(stat="identity", color="blue", fill="white",  width=0.5)
+
+```
+
+
+All these plots are a small part of the proposed work. An entirely ETL process must be performed in order to normalize the data. 
+
+Also, other data sources can be added in order to obtain as much detail as possible.
+
+
